@@ -1,5 +1,6 @@
 import time
 from selenium import webdriver
+from selenium.common import ElementNotVisibleException
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,6 +10,9 @@ driver = webdriver.Chrome()
 print("Rozpoczynam test 1 ")
 print("Otwieram strone")
 driver.get(url='https://helion.pl')
+
+#opoznic otwarcie strony
+driver.implicitly_wait(5) # czas oczekiwania 5 sec - test bedzie wykonywany co 5 sekund , kazda rzecz opozniona
 
 print("strona głowna")
 print("Wpisuje w wyszukiwarke")
@@ -26,11 +30,14 @@ time.sleep(2)
 
 print("Odnajduje ksiazke o Pythonie ")
 
-
-# WebDriverWait(driver,timeout=5).until(title_is('Szukasz "Python" « - Księgarnia informatyczna Helion'))
+#oczekiwanie na dany tytul strony
+WebDriverWait(driver,timeout=5).until(title_is('Szukasz "Python" « - Księgarnia informatyczna Helion'))
 # print("czekam na tytul Python 3. Projekty dla początkujących")
 
-WebDriverWait(driver,timeout=5).until(lambda x: x.find_element(By.CLASS_NAME, 'pytmiv--link')) #oczekiwanie jawne
+WebDriverWait(driver,timeout=5, poll_frequency=1,ignored_exceptions=[ElementNotVisibleException]).until(lambda x: x.find_element(By.CLASS_NAME, 'pytmiv--link')) #oczekiwanie jawne czekam 5 sek
+
+# poll_frequency=1 zablokowac ilosc sprawdzan na jedno, jesli klasa sie nie znajdzie test sie nie wykonuje prawidlowo
+
 print("poszukuje elementu link")
 driver.find_element(By.CLASS_NAME, 'pytmiv--link').click()
 print("Poszukuje elementu 'pytmie--link'")
