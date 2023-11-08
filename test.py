@@ -25,9 +25,7 @@ print("klikam zgode")
 driver.find_element(By.ID, 'rodo-ok').click()
 
 print("Klikniecie udane")
-
 time.sleep(2)
-
 print("Odnajduje ksiazke o Pythonie ")
 
 #oczekiwanie na dany tytul strony
@@ -41,14 +39,16 @@ WebDriverWait(driver,timeout=5, poll_frequency=1,ignored_exceptions=[ElementNotV
 print("poszukuje elementu link")
 driver.find_element(By.CLASS_NAME, 'pytmiv--link').click()
 print("Poszukuje elementu 'pytmie--link'")
-
-
 print("odnalezione")
-
-
-
 print("zagladam do ksiazki")
-driver.find_element(By.ID,'zajrzyj').click()
+zajrzyj = driver.find_element(By.ID,'zajrzyj')
+#webdriver.ActionChains(driver).click_and_hold(zajrzyj).perform() #efekt klikniecia myszy i przytrzymania jej w danym miejscu
+
+webdriver.ActionChains(driver).context_click(zajrzyj).perform()
+#kliknieie prawum przyciskiem myszy
+
+webdriver.ActionChains(driver).double_click(zajrzyj).perform()
+#podwojne klikniecie myszy
 time.sleep(2)
 print("test 1 wykonany prawidlowo")
 print("Koniec")
