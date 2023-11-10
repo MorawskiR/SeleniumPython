@@ -14,8 +14,11 @@ driver.find_element(By.LINK_TEXT, "Kliknij, aby wyświetlić okienko alert").cli
 
 #próba wlaczenia okienka
 
-time.sleep(5)
-alert = WebDriverWait(driver, timeout=5).until(expected_conditions.alert_is_present())
-text = alert.text
 
+WebDriverWait(driver, timeout=5).until(expected_conditions.alert_is_present())
+alert = driver.switch_to.alert
+
+text = alert.text
+time.sleep(5)
 alert.accept()
+time.sleep(5)
