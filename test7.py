@@ -11,4 +11,17 @@ class Test_1:
         self.longitude = -72.5033907
         self.accuracy = 100
 
-        driver.maximize_window()
+        driver.maximize_window() # maksymalizuj okno przegldarki
+        driver.execute_cdp_cmd("Emulation.setGeolocationOverride", {    #wprowadza komunikat skierowany do przegldatki
+            "latitude": self.latitude,
+            "longitude":self.longitude,
+            "accuracy": self.accuracy
+        })
+
+        driver.get("https://locations.dennys.com/search.html/")
+        time.sleep(7)
+        location_icon = driver.find_element(By.CSS_SELECTOR, "icon-geolocate")
+        time.sleep(7)
+        location_icon.click()
+        time.sleep(7)
+        print("Test zakończony!")
